@@ -608,12 +608,25 @@ function (angular, app, $, _, kbn, moment, timeSeries, numeral) {
           });
         };
 
+        //var integral = function(series) {
+        //  var sum = 0;
+        //  return _.map(series, function(p) {
+        //    p[1] = p[1] || 0;
+        //    sum = sum + p[1];
+        //    return [p[0], sum];
+        //  });
+        //};
+        
         var integral = function(series) {
           var sum = 0;
-          return _.map(series, function(p) {
-            p[1] = p[1] || 0;
-            sum = sum + p[1];
-            return [p[0], sum];
+          return _.map(series, function(p,i) {
+            if(i === 0) {
+              return [p[0],null];
+            } else {
+              p[1] = p[1] || 0;
+              sum = sum + p[1];
+              return [p[0], sum];
+            }
           });
         };
 
